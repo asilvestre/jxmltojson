@@ -1,15 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.github.asilvestre</groupId>
-  <artifactId>jxmltojson</artifactId>
-  <version>0.9</version>
-  <packaging>jar</packaging>
-
-  <name>jxmltojson</name>
- 	<url>https://github.com/asilvestre/jxmltojson</url>
+	<groupId>com.github.asilvestre</groupId>
+	<artifactId>jxmltojson</artifactId>
+	<version>0.9-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>jxmltojson</name>
+	<url>https://github.com/asilvestre/jxmltojson</url>
 	<description>XML to JSON converter in pure java code</description>
+	
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
 
 	<licenses>
 		<license>
@@ -20,8 +25,9 @@
 	</licenses>
 
 	<scm>
-		<url>scm:git:git://github.com/asilvestre/jxmltojson.git</url>
-		<connection>scm:git:git://github.com/asilvestre/jxmltojson.git</connection>
+	    <connection>scm:git:git@github.com:asilvestre/jxmltojson.git</connection>
+		<developerConnection>scm:git:git@github.com:asilvestre/jxmltojson.git</developerConnection>
+		<url>git@github.com:asilvestre/jxmltojson.git</url>
 	</scm>
 
 	<developers>
@@ -53,7 +59,7 @@
 				<version>0.7</version>
 				<configuration>
 					<message>Creating Javadocs for ${project.version}</message>
-					<repositoryName>jxmltojson</repositoryName>
+					<repositoryName>jxmlpurexml</repositoryName>
 					<repositoryOwner>asilvestre</repositoryOwner>
 				</configuration>
 				<executions>
