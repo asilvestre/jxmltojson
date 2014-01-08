@@ -58,7 +58,7 @@ public class JsonConverter {
 
 		String convertedJson = convertXmlTag(xmlDoc.root, config);
 
-		return String.format("{\"%s\": %s}", xmlDoc.root.name, convertedJson);
+		return "{\"" + xmlDoc.root.name + "\": " + convertedJson + "}";
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class JsonConverter {
 		// Serializing tag contents if any
 		String contentStr = "";
 		if (!tag.content.isEmpty()) {
-			contentStr = String.format("\"%s\": \"%s\"", config.contentId, escapeJsonLiteral(tag.content));
+			contentStr = "\"" + config.contentId + "\": \"" + escapeJsonLiteral(tag.content) + "\"";
 		}
 
 		// Serializing children contents if any
@@ -102,10 +102,10 @@ public class JsonConverter {
 			res = iterParts.next();
 		}
 		while (iterParts.hasNext()) {
-			res += String.format(", %s", iterParts.next());
+			res += ", " + iterParts.next();
 		}
 
-		res = String.format("{%s}", res);
+		res = "{" + res + "}";
 
 		return res;
 	}
@@ -125,15 +125,15 @@ public class JsonConverter {
 		// Serializing the first attribute
 		if (iterEntries.hasNext()) {
 			Entry<String, String> entry = iterEntries.next();
-			res = String.format("\"%s%s\": \"%s\"", config.attributePrefix, escapeJsonLiteral(entry.getKey()),
-					escapeJsonLiteral(entry.getValue()));
+			res = "\"" + config.attributePrefix + escapeJsonLiteral(entry.getKey()) + "\": \"" +
+                            escapeJsonLiteral(entry.getValue()) + "\"";
 		}
 
 		// Serializing the rest with commas in between
 		while (iterEntries.hasNext()) {
 			Entry<String, String> entry = iterEntries.next();
-			res += String.format(", \"%s%s\": \"%s\"", config.attributePrefix, escapeJsonLiteral(entry.getKey()),
-					escapeJsonLiteral(entry.getValue()));
+			res += ", \"" + config.attributePrefix + escapeJsonLiteral(entry.getKey()) + "\": \"" +
+                            escapeJsonLiteral(entry.getValue()) + "\"";
 		}
 
 		return res;
@@ -176,21 +176,21 @@ public class JsonConverter {
 			Vector<XmlTag> childs = entry.getValue();
 			if (childs.size() == 1) {
 				XmlTag child = childs.get(0);
-				childrenStr += String.format("\"%s\": %s, ", escapeJsonLiteral(child.name),
-						convertXmlTag(child, config));
+				childrenStr += "\"" + escapeJsonLiteral(child.name) + "\": " +
+                                    convertXmlTag(child, config) + ", ";
 			} else if (childs.size() > 1) {
 				String arrayValues = "";
 				for (int i = 0; i < childs.size(); i++) {
 					XmlTag child = childs.get(i);
-					arrayValues += String.format("%s, ", convertXmlTag(child, config));
+					arrayValues += convertXmlTag(child, config) + ", ";
 				}
 				// Removing the last comma
 				if (arrayValues.length() > 2) {
 					arrayValues = arrayValues.substring(0, arrayValues.length() - 2);
 				}
 
-				childrenStr += String.format("\"%s%s\": [%s], ", escapeJsonLiteral(name), config.childGroupSuffix,
-						arrayValues);
+				childrenStr += "\"" + escapeJsonLiteral(name) + config.childGroupSuffix + "\": [" +
+                                    arrayValues + "], ";
 			}
 		}
 		// Removing the last comma
@@ -217,5 +217,4 @@ public class JsonConverter {
 
 		return res;
 	}
-
 }
